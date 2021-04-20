@@ -1,28 +1,25 @@
 package com.example.githubclient;
 
 
-import com.example.githubclient.GitHubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class VerifierExecutor {
 
     @Autowired
-    private GitHubService gitHubService;
+    private GithubClient githubClient;
 
 
 //    @Scheduled(cron= "0 * * ? * *")
 //    public void verify() throws IOException{
-//            gitHubService.createComment();
+//            githubClient.addComment("Clonder", "java_au", 25L, "Oops!");
 //        }
 
-    @Scheduled(cron= "* * * ? * *")
-    public void print() throws IOException{
-        System.out.println("Hello");
+    @Scheduled(cron = "*/5 * * * * *")
+    public void print() {
+        System.out.println("Влад Котов, где ТЗ? Ты же обещал");
     }
 
 }
