@@ -1,5 +1,10 @@
-# Developing a RESTful Client with Retrofit and Spring Boot
+# Developing a pull request's title checker.
 
-Application repo accompanying the Auth0 article. In this article, you will learn hhow to use Retrofit and Spring Boot to develop a RESTful HTTP client to GitHub's API.
+This app checks title matches, that should follows this rules:
 
-[Developing a RESTful Client with Retrofit and Spring Boot](https://auth0.com/blog/developing-a-restful-client-with-retrofit-and-spring-boot/)
+Pull Request title must start with prefix in ['GENERATOR', 'LEETCODE']
+Pull Request title must contain group number in ['1021', '1022', '1013', '2021', '2022']
+Pull Request title action must start with ['Added', 'Deleted', 'Refactored', 'Moved', 'Fixed']
+
+
+
