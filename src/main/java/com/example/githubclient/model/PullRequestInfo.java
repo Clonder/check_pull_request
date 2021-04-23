@@ -8,5 +8,4 @@ import lombok.Setter;
 public class PullRequestInfo {
     private String title;
     private Long number;
-
 }

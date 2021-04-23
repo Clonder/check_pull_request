@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommitInfo {
-    private CommitBody commitBody;
+    private CommitBody commit;
 }

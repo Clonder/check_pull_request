@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class CommitBody {
     private String message;
+    private String sha;
 }
