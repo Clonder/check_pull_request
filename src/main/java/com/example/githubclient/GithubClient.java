@@ -2,11 +2,13 @@ package com.example.githubclient;
 
 import com.example.githubclient.model.*;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.example.githubclient.MessageTemplateVerifier.process;
 
@@ -22,6 +24,7 @@ public class GithubClient {
 
     private final GithubApiInterface service;
 
+
     public GithubClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -32,11 +35,8 @@ public class GithubClient {
         this.accessToken = "token ";
     }
 
-
-    public List<PullRequestInfo> getAllPulls(String owner, String repository, PullRequestState state)
-            throws IOException {
-        var pullRequestInfo = service.getAllPulls(accessToken, API_VERSION_SPEC, repository,
-                owner, state.getValue());
+    public <T> T executeWithResult(Supplier<Call<T>> retrofitCall) throws IOException {
+        var pullRequestInfo = retrofitCall.get();
 
         var response = pullRequestInfo.execute();
 
@@ -48,58 +48,43 @@ public class GithubClient {
         return response.body();
     }
 
+
+    public List<PullRequestInfo> getAllPulls(String owner, String repository, PullRequestState state)
+            throws IOException {
+        return executeWithResult(() -> service.getAllPulls(accessToken, API_VERSION_SPEC, repository,
+                owner, state.getValue()));
+    }
+
     public List<CommitInfo> getAllCommits(String owner, String repository, Long pullNumber) throws IOException {
 
-        var commitsInfo = service.getAllCommitsForPull(accessToken, API_VERSION_SPEC, repository,
-                owner, pullNumber);
+        return executeWithResult(() -> service.getAllCommitsForPull(accessToken, API_VERSION_SPEC, repository,
+                owner, pullNumber));
 
-        var response = commitsInfo.execute();
-
-        if (!response.isSuccessful()) {
-            throw new IOException(response.errorBody() != null
-                    ? response.errorBody().string() : "Unknown error");
-        }
-
-        return response.body();
     }
 
     public List<CommentResponse> getAllIssueComments(String owner, String repository, Long issueNumber)
             throws IOException {
 
-        var commitsInfo = service.getAllIssueCommentsForPull(accessToken,
+        return executeWithResult(() -> service.getAllIssueCommentsForPull(accessToken,
                 API_VERSION_SPEC, repository,
-                owner, issueNumber);
-
-        var response = commitsInfo.execute();
-
-        if (!response.isSuccessful()) {
-            throw new IOException(response.errorBody() != null
-                    ? response.errorBody().string() : "Unknown error");
-        }
-
-        return response.body();
+                owner, issueNumber));
     }
 
     public List<CommentResponse> getAllReviewComments(String owner, String repository, Long pullNumber)
             throws IOException {
 
-        var commitsInfo = service.getAllReviewCommentsForPull(accessToken,
+        return executeWithResult(() -> service.getAllReviewCommentsForPull(accessToken,
                 API_VERSION_SPEC, repository,
-                owner, pullNumber);
-
-        var response = commitsInfo.execute();
-
-        if (!response.isSuccessful()) {
-            throw new IOException(response.errorBody() != null
-                    ? response.errorBody().string() : "Unknown error");
-        }
-
-        return response.body();
+                owner, pullNumber));
     }
 
-    public void addReviewComment(String owner, String repoName, Long pullNumber, String commitId, String comment,
-                                 Integer position, String filePath)
-            throws IOException {
+    public void addReviewComment(String owner,
+                                 String repoName,
+                                 Long pullNumber,
+                                 String commitId,
+                                 String comment,
+                                 Integer position,
+                                 String filePath) throws IOException {
         var retrofitCall = service.addReviewComment(accessToken, API_VERSION_SPEC, repoName, owner,
                 pullNumber, new CommentBody(VERIFICATION_RESULT + " " + comment, position, filePath, commitId));
 
@@ -112,8 +97,10 @@ public class GithubClient {
 
     }
 
-    public void addIssueComment(String owner, String repoName, Long issueNumber, String comment)
-            throws IOException {
+    public void addIssueComment(String owner,
+                                String repoName,
+                                Long issueNumber,
+                                String comment) throws IOException {
         var retrofitCall = service.addIssueComment(accessToken, API_VERSION_SPEC, repoName, owner,
                 issueNumber, new CommentBody(VERIFICATION_RESULT + " " + comment));
 
