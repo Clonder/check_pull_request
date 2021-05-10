@@ -20,9 +20,9 @@ public class RetrofitBeans {
     public GithubApiInterface getGithubApiInterface() {
         final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
+            .baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
 
         return retrofit.create(GithubApiInterface.class);
     }
