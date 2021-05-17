@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GithubClientApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GithubClientApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GithubClientApplication.class, args);
+    }
 }
+
+

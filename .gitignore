@@ -24,3 +24,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+/src/main/resources/github.properties
+/src/test/java/resources/github.properties
+/src/test/resources/github.properties

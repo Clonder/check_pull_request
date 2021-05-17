@@ -1,6 +1,5 @@
 package com.example.githubclient;
 
-
 public class MessageTemplateVerifier {
 
     private static final String TITLE_TEMPLATE =
