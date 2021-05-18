@@ -1,21 +1,40 @@
 package com.example.githubclient;
 
 
+import com.example.githubclient.model.github.PullRequestState;
+import com.example.githubclient.service.GithubClient;
+import com.example.githubclient.service.RepositoryService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 @Component
 public class VerifierExecutor {
 
+    private final GithubClient githubClient;
+    private final RepositoryService repositoryService;
 
-//    @Scheduled(cron= "0 * * ? * *")
-//    public void verify() throws IOException{
-//            githubClient.addComment("Clonder", "java_au", 25L, "Oops!");
-//        }
-
-    @Scheduled(cron = "*/5 * * * * *")
-    public void print() {
-        System.out.println("Влад Котов, где ТЗ? Ты же обещал");
+    public VerifierExecutor(GithubClient githubClient,
+                            RepositoryService repositoryService) {
+        this.githubClient = githubClient;
+        this.repositoryService = repositoryService;
     }
 
+    @Scheduled(cron = "0 */4 * * * *")
+    public void verify() {
+        repositoryService.getAll()
+            .forEach(repository -> {
+                    try {
+                        githubClient.validatePullRequest(
+                            repository.getOwner().getUsername(),
+                            repository.getName(),
+                            PullRequestState.ALL
+                        );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            );
+    }
 }

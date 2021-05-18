@@ -5,7 +5,11 @@ import com.example.githubclient.model.github.CommitInfo;
 import com.example.githubclient.model.github.PullRequestInfo;
 import com.example.githubclient.model.github.PullRequestState;
 import com.example.githubclient.service.GithubClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +67,7 @@ public class GitHubClientController {
                                  @RequestParam String comment,
                                  @RequestParam String path,
                                  @RequestParam Integer position)
-            throws IOException {
+        throws IOException {
 
         githubService.addReviewComment(owner, repository, pullNumber, commitId, comment, position, path);
     }
@@ -73,7 +77,7 @@ public class GitHubClientController {
                                 @PathVariable final String repository,
                                 @PathVariable Long issueNumber,
                                 @RequestParam String comment)
-            throws IOException {
+        throws IOException {
 
         githubService.addIssueComment(owner, repository, issueNumber, comment);
     }
