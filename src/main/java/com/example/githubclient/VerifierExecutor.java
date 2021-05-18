@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class VerifierExecutor {
 
-//    @Autowired
-//    private GithubClient githubClient;
-
 
 //    @Scheduled(cron= "0 * * ? * *")
 //    public void verify() throws IOException{

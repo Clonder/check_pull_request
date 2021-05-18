@@ -3,7 +3,6 @@ package com.example.githubclient.service;
 import com.example.githubclient.GithubApiInterface;
 import com.example.githubclient.model.github.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 
@@ -13,14 +12,13 @@ import java.util.List;
 import static com.example.githubclient.MessageTemplateVerifier.process;
 
 @Service
-@PropertySource("classpath:github.properties")
 public class GithubClient {
     public static final String VERIFICATION_RESULT = "VERIFICATION RESULT";
 
     private static final String API_VERSION_SPEC = "application/vnd.github.v3+json";
 
 
-    @Value("token ${github.token}")
+    @Value("token ${GITHUB_TOKEN}")
     private String accessToken;
 
 

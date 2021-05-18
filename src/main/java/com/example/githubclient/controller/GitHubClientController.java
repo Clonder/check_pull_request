@@ -28,7 +28,7 @@ public class GitHubClientController {
         return githubService.getAllPulls(owner, repository, state);
     }
 
-    @GetMapping("{owner}/{repository}/all-commits/{pullNumber}")
+    @GetMapping("{owner}/{repository}/{pullNumber}/all-commits")
     public List<CommitInfo> getAllCommits(@PathVariable final String owner,
                                           @PathVariable final String repository,
                                           @PathVariable Long pullNumber)
@@ -37,7 +37,7 @@ public class GitHubClientController {
         return githubService.getAllCommits(owner, repository, pullNumber);
     }
 
-    @GetMapping("{owner}/{repository}/all-issue-comment/{issueNumber}")
+    @GetMapping("{owner}/{repository}/{issueNumber}/all-issue-comment")
     public List<CommentResponse> getAllIssueComments(@PathVariable final String owner,
                                                      @PathVariable final String repository,
                                                      @PathVariable Long issueNumber)
@@ -46,7 +46,7 @@ public class GitHubClientController {
         return githubService.getAllIssueComments(owner, repository, issueNumber);
     }
 
-    @GetMapping("{owner}/{repository}/all-review-comment/{pullNumber}")
+    @GetMapping("{owner}/{repository}/{pullNumber}/all-review-comment")
     public List<CommentResponse> getAllReviewComments(@PathVariable final String owner,
                                                       @PathVariable final String repository,
                                                       @PathVariable Long pullNumber)
@@ -55,7 +55,7 @@ public class GitHubClientController {
         return githubService.getAllReviewComments(owner, repository, pullNumber);
     }
 
-    @GetMapping("{owner}/{repository}/add-review-comment/{pullNumber}")
+    @GetMapping("{owner}/{repository}/{pullNumber}/add-review-comment")
     public void addReviewComment(@PathVariable final String owner,
                                  @PathVariable final String repository,
                                  @PathVariable Long pullNumber,
@@ -68,7 +68,7 @@ public class GitHubClientController {
         githubService.addReviewComment(owner, repository, pullNumber, commitId, comment, position, path);
     }
 
-    @GetMapping("{owner}/{repository}/add-issue-comment/{issueNumber}")
+    @GetMapping("{owner}/{repository}/{issueNumber}/add-issue-comment")
     public void addIssueComment(@PathVariable final String owner,
                                 @PathVariable final String repository,
                                 @PathVariable Long issueNumber,
