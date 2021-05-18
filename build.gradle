@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.5.RELEASE'
+        springBootVersion = '2.1.5.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -10,31 +10,43 @@ buildscript {
     }
 }
 
+group = 'githubclient'
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.example'
+
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 11
+sourceCompatibility = "11"
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    implementation 'junit:junit:4.13.1'
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
     compile('javax.xml.bind:jaxb-api:2.3.0')
     implementation('com.squareup.retrofit2:retrofit:2.4.0')
     implementation('com.squareup.retrofit2:converter-gson:2.4.0')
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.3.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.0'
+    implementation('org.springframework.boot:spring-boot-starter-test')
+
+    testImplementation 'junit:junit:4.13.1'
     testImplementation('org.junit:junit-bom:5.7.1')
     testImplementation('org.junit.jupiter:junit-jupiter:5.7.1')
+    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation 'com.squareup.retrofit2:retrofit-mock:2.4.0'
 }
 
 test {

@@ -1,15 +1,11 @@
 package com.example.githubclient;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VerifierExecutor {
-
-    @Autowired
-    private GithubClient githubClient;
 
 
 //    @Scheduled(cron= "0 * * ? * *")
